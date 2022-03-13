@@ -14,6 +14,9 @@ const path = require('path');
 module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
+    fallback: {
+      "querystring": require.resolve("querystring-es3")
+    }
   },
   module: {
     rules: [
