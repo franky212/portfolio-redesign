@@ -33,14 +33,14 @@ const App = () => {
         <h1 className="underline text-xl">Nav</h1>
       </nav>
       <div id="canvas-container">
-        {/* <Canvas>
+        <Canvas>
           <PresentationControls global zoom={0.8} rotation={[0, -Math.PI / 4, 0]} polar={[0, Math.PI / 4]} azimuth={[-Math.PI / 4, Math.PI / 4]}>
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <Box position={[-1.2, 0, 0]} />
             <Box position={[1.2, 0, 0]} />
           </PresentationControls>
-        </Canvas> */}
+        </Canvas>
       </div>
     </>
   );
