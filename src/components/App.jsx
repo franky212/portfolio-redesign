@@ -1,7 +1,7 @@
 import '../styles/styles.scss';
 import { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { PresentationControls } from '@react-three/drei'
+import { PresentationControls } from '@react-three/drei';
 
 const Box = (props) => {
   // This reference gives us direct access to the THREE.Mesh object
