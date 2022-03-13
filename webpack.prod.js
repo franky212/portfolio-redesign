@@ -10,7 +10,7 @@ const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 module.exports = merge(commonConfiguration, {
   mode: 'production',
   entry: {
-    popshop: path.resolve(__dirname, './src/scripts/app.js'),
+    portfolio: path.resolve(__dirname, './src/scripts/app.js'),
   },
   devtool: 'source-map',
   output: {
