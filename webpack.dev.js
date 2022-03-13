@@ -1,8 +1,6 @@
 const { merge } = require('webpack-merge');
 const webpack = require( 'webpack' );
 const commonConfiguration = require('./webpack.common.js');
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
-const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const path = require('path');
 
 const hotMiddlewareScript =
@@ -17,16 +15,11 @@ module.exports = merge(commonConfiguration, {
     filename: 'js/[name].[contenthash].js',
     path: path.resolve(__dirname, './dist'),
     publicPath: '/',
-    clean: true,
-    // hotUpdateChunkFilename: 'hot/hot-update.js',
-    // hotUpdateMainFilename: 'hot/hot-update.json'
+    clean: true
   },
   devtool: 'source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new MiniCSSExtractPlugin({
-      filename: 'css/[name].[contenthash].css',
-    }),
     // new ImageMinimizerPlugin({
     //   minimizerOptions: {
     //     // Lossless optimization with custom option

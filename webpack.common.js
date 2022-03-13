@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 // let htmlPageNames = [];
 // let multipleHtmlPlugins = htmlPageNames.map(name => {
@@ -59,8 +60,11 @@ module.exports = {
       // Images
 
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset',
+        test: /\.(png|svg|jpg|jpeg|gif|mp4)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name].[ext]'
+        },
       },
 
       // {
@@ -107,9 +111,13 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/views/index.html'),
       inject: 'body',
+    }),
+    new MiniCSSExtractPlugin({
+      filename: 'css/[name].[contenthash].css',
     }),
   ],
   optimization: {

@@ -1,16 +1,25 @@
 import '../styles/styles.scss';
+import * as THREE from 'three';
 import { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { PresentationControls } from '@react-three/drei';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { MeshReflectorMaterial, Environment, ContactShadows, Text } from '@react-three/drei';
+import { gsap } from 'gsap';
 
 const Box = (props) => {
   // This reference gives us direct access to the THREE.Mesh object
-  const ref = useRef()
+  const ref = useRef();
+  
   // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
+  const [hovered, hover] = useState(false);
+  const [clicked, click] = useState(false);
+
   // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => (ref.current.rotation.x += 0.01))
+  useFrame((state, delta) => {
+    gsap.to( ref.current.rotation, {
+      x: "+= 0.1"
+    });
+  });
+
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
     <mesh
@@ -27,21 +36,42 @@ const Box = (props) => {
 };
 
 const App = () => {
+  const [video] = useState(() => Object.assign(document.createElement('video'), { src: '../assets/videos/drei.mp4', crossOrigin: 'Anonymous', loop: true }))
   return (
     <>
-      <nav>
-        <h1 className="underline text-xl">Nav</h1>
-      </nav>
-      <div id="canvas-container">
-        <Canvas>
-          <PresentationControls global zoom={0.8} rotation={[0, -Math.PI / 4, 0]} polar={[0, Math.PI / 4]} azimuth={[-Math.PI / 4, Math.PI / 4]}>
-            <ambientLight />
-            <pointLight position={[10, 10, 10]} />
-            <Box position={[-1.2, 0, 0]} />
-            <Box position={[1.2, 0, 0]} />
-          </PresentationControls>
-        </Canvas>
-      </div>
+      <Canvas flat dpr={[1, 2]} camera={{ fov: 25, position: [-8, 0, 0] }} id="canvas-container" style={{position: 'absolute'}}>
+        <color attach="background" args={['#191920']} />
+        <fog attach="fog" args={['#191920', 0, 15]} />
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} />
+        <Text font='' position={[0, 0.5, 0]} fontSize={2} letterSpacing={-0.06} rotation={[0, -Math.PI / 2, 0]}>
+          drei
+          <meshBasicMaterial toneMapped={false}>
+            <videoTexture attach="map" args={[video]} encoding={THREE.sRGBEncoding} />
+          </meshBasicMaterial>
+        </Text>
+        <group position={[0, -0.5, 0]}>
+          {/* <Box position={[-1.2, 1, 0]} />
+          <Box position={[1.2, 1, 0]} /> */}
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+            <planeBufferGeometry args={[50, 50]}></planeBufferGeometry>
+            <MeshReflectorMaterial
+              blur={[300, 100]}
+              resolution={2048}
+              mixBlur={1}
+              mixStrength={40}
+              roughness={1}
+              depthScale={1.2}
+              minDepthThreshold={0.4}
+              maxDepthThreshold={1.4}
+              color="#101010"
+              metalness={0.5}
+            />
+          </mesh>
+        </group>
+        <Environment preset="city" />
+        <ContactShadows frames={1}></ContactShadows>
+      </Canvas>
     </>
   );
 };
