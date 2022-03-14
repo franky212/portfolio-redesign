@@ -10,11 +10,6 @@ module.exports = merge(commonConfiguration, {
     portfolio: path.resolve(__dirname, './src/scripts/app.js'),
   },
   devtool: 'source-map',
-  output: {
-    filename: 'js/[name].[contenthash].js',
-    path: path.resolve(__dirname, './dist'),
-    clean: true
-  },
   plugins: [
     // new ImageMinimizerPlugin({
     //   minimizerOptions: {

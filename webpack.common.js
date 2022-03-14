@@ -19,6 +19,22 @@ module.exports = {
       "querystring": require.resolve("querystring-es3")
     }
   },
+  output: {
+    filename: 'js/[name].[contenthash].js',
+    path: path.join(__dirname, 'dist'),
+    publicPath: '/',
+    clean: true
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    devMiddleware: {
+      writeToDisk: true
+    },
+    port: 3000,
+    open: true
+  },
   module: {
     rules: [
       // HTML
@@ -62,9 +78,6 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|jpeg|gif|mp4)$/i,
         type: 'asset/resource',
-        generator: {
-          filename: 'assets/[name].[ext]'
-        },
       },
 
       // {

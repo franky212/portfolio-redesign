@@ -13,13 +13,14 @@ const compiler = webpack(config);
 app.use(
   webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,
-    writeToDisk: true,
+    writeToDisk: true
   })
 );
 
 app.use( webpackHotMiddleware(compiler, {
   noInfo: true,
-  quiet: true
+  quiet: true,
+  contentBase: '/dist'
 }) );
 
 app.get( '/*', function(req, res) {

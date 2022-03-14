@@ -9,13 +9,7 @@ const hotMiddlewareScript =
 module.exports = merge(commonConfiguration, {
   mode: 'development',
   entry: {
-    portfolio: [hotMiddlewareScript, './src/scripts/app.js'],
-  },
-  output: {
-    filename: 'js/[name].[contenthash].js',
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/',
-    clean: true
+    portfolio: ['./src/scripts/app.js'],
   },
   devtool: 'source-map',
   plugins: [
