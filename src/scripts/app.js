@@ -7,7 +7,7 @@ import App from '../components/App';
 render(
   <>
     <Suspense fallback={null}>
-      <Canvas gl={{ alpha: false}} pixelRatio={[1, 1.5]} camera={{ position: [0, 0, 0]}} id="canvas-container" style={{position: 'absolute'}}>
+      <Canvas mode='concurrent' dpr={[1, 1.5]} camera={{ position: [0, 0, 0]}} id="canvas-container" style={{position: 'absolute'}}>
         <App />
       </Canvas>
     </Suspense>
