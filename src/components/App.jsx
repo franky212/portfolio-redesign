@@ -2,7 +2,7 @@ import '../styles/styles.scss';
 import * as THREE from 'three';
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Text, Environment, MeshReflectorMaterial, useTexture, MeshDistortMaterial } from '@react-three/drei';
+import { Text, Environment, MeshReflectorMaterial, useTexture, MeshDistortMaterial, Html } from '@react-three/drei';
 import { gsap } from 'gsap';
 
 import dreiVideo from '../assets/videos/drei.mp4';
@@ -78,7 +78,10 @@ const App = () => {
             />
           </meshStandardMaterial>
         </Text>
-        <mesh position={[2, 1.8, -3.2]} ref={cloudRef} onPointerEnter={meshAnimation} fog={false}>
+        <Html position={[-1.5, 1.4, -3.2]} rotation={[0, 0, 0]}>
+          <h1 onClick={meshAnimation} className="text-4xl font-bold text-white cursor-pointer">HELLO</h1>
+        </Html>
+        <mesh position={[2, 1.8, -3.2]} ref={cloudRef} fog={false}>
           <sphereBufferGeometry attach="geometry" />
           <MeshDistortMaterial
             attach="material"
