@@ -43,8 +43,8 @@ const Dog = ({position, scale}) => {
 
   useFrame((state, delta) => {
     // ref.current.position.x = THREE.MathUtils.damp(ref.current.position.x, position[0] - 2, 6, delta);
-    ref.current.scale.x = THREE.MathUtils.damp(ref.current.scale.x, hovered ? 0.9 : scale[0], 6, delta);
-    ref.current.scale.y = THREE.MathUtils.damp(ref.current.scale.y, hovered ? scale[1] + 0.2 : scale[1], 8, delta);
+    ref.current.scale.x = THREE.MathUtils.damp(ref.current.scale.x, hovered ? 0.75 : scale[0], 6, delta);
+    ref.current.scale.y = THREE.MathUtils.damp(ref.current.scale.y, hovered ? scale[1] + 0.1 : scale[1], 8, delta);
     // ref.current.position.x = (position[0] - 1) * scroll.current;
     // console.log( ref.current.position.x );
   });
@@ -81,9 +81,9 @@ const App = () => {
       <fog attach="fog" args={["black", 1, 4]} />
       <ScrollControls horizontal damping={10} pages={5}>
         <Scroll>
-          <Dog position={[1.5 * xW, 0.5, -2.5]} scale={[0.7, 2, 1]} />
-          <Dog position={[2.5 * xW, 0.5, -2.5]} scale={[0.7, 2, 1]} />
-          <Dog position={[3.5 * xW, 0.5, -2.5]} scale={[0.7, 2, 1]} />
+          <Dog position={[1.5 * xW, 0.2, -2.5]} scale={[0.7, 2, 1]} />
+          <Dog position={[2.5 * xW, 0.2, -2.5]} scale={[0.7, 2, 1]} />
+          <Dog position={[3.5 * xW, 0.2, -2.5]} scale={[0.7, 2, 1]} />
         </Scroll>
       </ScrollControls>
       <group position={[0, -1, 0]}>
