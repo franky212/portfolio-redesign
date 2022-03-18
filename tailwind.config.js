@@ -4,6 +4,9 @@ module.exports = {
     './src/components/**/*.jsx'
   ],
   theme: {
+    container: {
+      center: true
+    },
     extend: {},
     fontFamily: {
       sans: ['Museo Sans']

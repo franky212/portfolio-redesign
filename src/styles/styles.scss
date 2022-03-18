@@ -4,15 +4,22 @@
 
 html,
 body {
+  position: relative;
   margin: 0;
   padding: 0;
   font-family: 'Museo Sans';
-  overscroll-behavior: none;
 }
 
 #root {
   position: relative;
   height: 100vh;
+  .container {
+    @apply relative py-4 z-50;
+  }
+  nav li {
+    @apply cursor-pointer p-4;
+    color: #1a1a1d;
+  }
   #canvas-container {
     position: absolute;
     top: 0;
