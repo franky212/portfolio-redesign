@@ -61,6 +61,25 @@ module.exports = {
         },
       },
 
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'assets/images'
+        },
+      },
+
+      {
+        test: /\.(gltf|glb|bin)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'assets/models',
+          esModule: false
+        }
+      },
+
       // CSS
       {
         test: /\.s[ac]ss$/i,
@@ -75,16 +94,9 @@ module.exports = {
 
       // Images
 
-      {
-        test: /\.(png|svg|jpg|jpeg|gif|mp4)$/i,
-        type: 'asset/resource',
-      },
-
       // {
-      //   test: /\.(jpg|png|gif|svg)$/,
-      //   use: {
-      //     loader: 'url-loader'
-      //   }
+      //   test: /\.(png|svg|jpg|jpeg|gif|mp4)$/i,
+      //   type: 'asset/resource',
       // },
 
       // {
@@ -103,30 +115,32 @@ module.exports = {
 
       // Fonts
 
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/resource',
-      },
-
       // {
-      //   test: /\.(ttf|eot|woff|woff2)$/,
-      //   use:
-      //     [
-      //       {
-      //         loader: 'file-loader',
-      //         options:
-      //         {
-      //           outputPath: './assets/fonts/'
-      //         }
-      //       }
-      //     ]
-      // }
+      //   test: /\.(woff|woff2|eot|ttf|otf)$/i,
+      //   type: 'asset/resource',
+      // },
+
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use:
+          [
+            {
+              loader: 'file-loader',
+              options:
+              {
+                name: '[name].[ext]',
+                outputPath: 'assets/fonts'
+              }
+            }
+          ]
+      }
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/views/index.html'),
+      favicon: './src/assets/logos/fd..svg',
       inject: 'body',
     }),
     new MiniCSSExtractPlugin({

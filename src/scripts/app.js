@@ -9,12 +9,9 @@ import App from '../components/App';
 
 render(
   <>
-    <MainContent />
     <Suspense fallback={null}>
-      <Canvas mode='concurrent' gl={{ antialias: true }} dpr={[1, 1.5]} camera={{position: [0, 0, 0]}} id="canvas-container" style={{position: 'absolute'}}>
-        <spotLight position={[0, 0, 0]} intensity={10} />
-        <directionalLight color={"red"} position={[0, 0, 0]} intensity={10} />
-        <ambientLight position={[0, 0, -1]} intensity={0.5} />
+      <MainContent />
+      <Canvas shadowMap mode='concurrent' gl={{ antialias: true }} dpr={[1, 1.5]} camera={{position: [0, 0, 0]}} id="canvas-container" style={{position: 'absolute'}}>
         <ScrollControls damping={10} pages={10}>
           <Scroll>
             <App />
