@@ -24,6 +24,7 @@ import font from '../assets/fonts/Inter-Bold.woff';
 import toyCar from '../assets/models/ToyCar.glb';
 import mac from '../assets/models/mac-draco.glb';
 import { SpotLightHelper, DirectionalLightHelper } from 'three';
+import logo from '../assets/logos/fd..svg';
 
 const rsqw = (t, delta = 0.1, a = 1, f = 1 / (2 * Math.PI)) => (a / Math.atan(1 / delta)) * Math.atan(Math.sin(2 * Math.PI * t * f) / delta)
 
@@ -221,9 +222,18 @@ const App = () => {
                 <mesh castShadow material={materials['matte.001']} geometry={nodes['Cube008_1'].geometry} />
                 <mesh castShadow geometry={nodes['Cube008_2'].geometry}>
                   {/* Drei's HTML component can now "hide behind" canvas geometry */}
-                  <Html onClick={() => setScreenClicked(!screenClicked)} className="content" rotation-x={-Math.PI / 2} position={[0, 0.05, -0.09]} transform occlude>
-                    <div className="wrapper">
-                      <h1>Hello</h1>
+                  <Html className="content" rotation-x={-Math.PI / 2} position={[0, 0.05, -0.09]} transform occlude>
+                    <div className="text-xs text-white" onMouseEnter={() => setScreenClicked(!screenClicked)} onMouseLeave={() => setScreenClicked(!screenClicked)}>
+                      <div className="px-4 wrapper">
+                        <nav className="flex items-center justify-between pt-4 pb-2">
+                          <img alt="Frank Delaguila - Designer and Developer Logo (FD.)" className="w-6" src={logo} />
+                          <h1>Hello</h1>
+                        </nav>
+                        <div className="bg-zinc-800 w-full rounded p-4">
+                          <h1 className="font-bold uppercase text-xl" style={ {color: '#e35205'} }>Ultradent</h1>
+                          <p>React/Preact, Javascript, jQuery, Webpack, Storybook, React Testing Library</p>
+                        </div>
+                      </div>
                     </div>
                   </Html>
                 </mesh>
