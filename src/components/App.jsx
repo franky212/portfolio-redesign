@@ -17,14 +17,13 @@ import {
  } from '@react-three/drei';
 import { gsap } from 'gsap';
 
-// import floorTexture from '../assets/textures/texture1.jpg';
-// import floorTextureNormal from '../assets/textures/texture1_normal.jpg';
 import font from '../assets/fonts/Inter-Bold.woff';
-// import deskScene from '../assets/models/desk_asset/scene.gltf';
 import toyCar from '../assets/models/ToyCar.glb';
 import mac from '../assets/models/mac-draco.glb';
 import { SpotLightHelper, DirectionalLightHelper } from 'three';
 import logo from '../assets/logos/fd..svg';
+import ultradentLogo from '../assets/logos/ultradent-white.svg';
+import monumetricLogo from '../assets/logos/monumetric-stacked-white.svg';
 
 const rsqw = (t, delta = 0.1, a = 1, f = 1 / (2 * Math.PI)) => (a / Math.atan(1 / delta)) * Math.atan(Math.sin(2 * Math.PI * t * f) / delta)
 
@@ -50,31 +49,35 @@ const Floor = () => {
   );
 };
 
-const Dog = ({position, scale}) => {
+const Dog = ({position, scale, index}) => {
   const ref = useRef();
 
   const scroll = useScroll();
   const [hovered, setHovered] = useState(false);
+  const [clicked, setClicked] = useState(false);
   const [rnd] = useState(() => Math.random());
 
   useFrame((state, delta) => {
-    // console.log( r1 );
-    // ref.current.position.x = THREE.MathUtils.damp(ref.current.position.x, position[0] - 2, 6, delta);
-    // ref.current.rotation.y = -Math.sin(rnd * state.clock.elapsedTime) / 6;
-    // if( !scroll.range(1 / 3, 1 / 3) ) {
-    //   ref.current.position.y = scroll.offset * 10;
-    // console.log( props );
-    // }
+    ref.current.material.scale[0] = ref.current.scale.x = THREE.MathUtils.damp(ref.current.scale.x, clicked ? 4 : scale[0], 6, delta);
+
+    ref.current.position.x = THREE.MathUtils.damp(ref.current.position.x, clicked ? position[0] + 1 : position[0], 6, delta);
+
     ref.current.scale.x = THREE.MathUtils.damp(ref.current.scale.x, hovered ? 0.75 : scale[0], 6, delta);
     ref.current.scale.y = THREE.MathUtils.damp(ref.current.scale.y, hovered ? scale[1] + 0.1 : scale[1], 8, delta);
     ref.current.material.grayscale = THREE.MathUtils.damp(ref.current.material.grayscale, hovered ? 0 : 1, 6, delta);
     ref.current.material.zoom = 1.5 + Math.sin(rnd * 10000 + state.clock.elapsedTime / 3) / 2;
-    ref.current.material.color.lerp(new THREE.Color().set(hovered ? 'white' : '#aaa'), hovered ? 0.3 : 0.1)
-    // ref.current.position.x = (position[0] - 1) * scroll.current;
-    // console.log( ref.current.position.x );
+    ref.current.material.color.lerp(new THREE.Color().set(hovered ? 'white' : '#aaa'), hovered ? 0.3 : 0.1);
   });
   return (
-      <Image ref={ref} onPointerOver={() => setHovered(true)} onPointerOut={() => setHovered(false)} url="https://picsum.photos/id/237/1920/1024" position={position} rotation={[0, 0, 0]} scale={scale}/>
+      <Image
+        ref={ref}
+        onClick={() => setClicked(!clicked)}
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
+        url="https://picsum.photos/id/237/1920/1028"
+        position={position}
+        rotation={[0, 0, 0]}
+        scale={scale}/>
   );
 };
 
@@ -207,9 +210,9 @@ const App = () => {
 
       <group ref={lightingTarget}>
         <group ref={imageGroupRef} position={[0, 0, 0]}>
-          <Dog position={[1.5 * xW, -0.1, -3]} scale={[0.7, 2, 1]} />
-          <Dog position={[2.5 * xW, -0.1, -3]} scale={[0.7, 2, 1]} />
-          <Dog position={[3.5 * xW, -0.1, -3]} scale={[0.7, 2, 1]} />
+          <Dog index={0} position={[1.5 * xW, -0.1, -3]} scale={[0.7, 2, 1]} />
+          <Dog index={1} position={[2.5 * xW, -0.1, -3]} scale={[0.7, 2, 1]} />
+          <Dog index={2} position={[3.5 * xW, -0.1, -3]} scale={[0.7, 2, 1]} />
 
           {/* <group rotation={[Math.PI / 2, 0, 0]} position={[1.5, -1, -3]} scale={[0.01, 0.01, 0.01]}>
                 <mesh receiveShadow castShadow geometry={toyCar.nodes.ToyCar.geometry} />
@@ -223,16 +226,32 @@ const App = () => {
                 <mesh castShadow geometry={nodes['Cube008_2'].geometry}>
                   {/* Drei's HTML component can now "hide behind" canvas geometry */}
                   <Html className="content" rotation-x={-Math.PI / 2} position={[0, 0.05, -0.09]} transform occlude>
-                    <div className="text-xs text-white" onMouseEnter={() => setScreenClicked(!screenClicked)} onMouseLeave={() => setScreenClicked(!screenClicked)}>
+                    <div className="text-xs text-white">
                       <div className="px-4 wrapper">
-                        <nav className="flex items-center justify-between pt-4 pb-2">
+                        <nav className="flex items-center justify-between py-2">
                           <img alt="Frank Delaguila - Designer and Developer Logo (FD.)" className="w-6" src={logo} />
-                          <h1>Hello</h1>
+                          <div className="flex items-center">
+                            <p className="mr-2">{!screenClicked ? 'Zoom In' : 'Zoom Out'}</p>
+                            <div onMouseDown={() => setScreenClicked(!screenClicked)} className="cursor-pointer bg-zinc-800 py-2 px-4 rounded-sm hover:bg-zinc-700 transition-colors">
+                              {!screenClicked ? <i class="fa-solid fa-magnifying-glass-plus"></i> : <i class="fa-solid fa-magnifying-glass-minus"></i>}
+                            </div>
+                          </div>
                         </nav>
-                        <div className="bg-zinc-800 w-full rounded p-4">
-                          <h1 className="font-bold uppercase text-xl" style={ {color: '#e35205'} }>Ultradent</h1>
-                          <p>React/Preact, Javascript, jQuery, Webpack, Storybook, React Testing Library</p>
+
+                        <div className="bg-zinc-800 w-full rounded p-4 mb-2">
+                          <a target="_blank" href="https://www.monumetric.com/">
+                            <img className="w-16 mb-2" src={monumetricLogo} alt="Monumetric Logo - Graphic of the Pale Blue Dot from Caral Sagan with Monumetric below" />
+                          </a>
+                          <p><span className="font-bold">Technologies Used:</span><br />Angular 3/7/13+, SCSS(Sass), AWS/Google Auth APIs, Social Media APIs, Figma, Adobe XD</p>
                         </div>
+
+                        <div className="bg-zinc-800 w-full rounded p-4 mb-2">
+                          <a target="_blank" href="https://www.ultradent.com/">
+                            <img className="w-12 mb-2" src={ultradentLogo} alt="Ultradent Logo - UPI in white for Ultradent Products Inc." />
+                          </a>
+                          <p><span className="font-bold">Technologies Used:</span><br />React/Preact, Javascript, jQuery, Webpack, Storybook, React Testing Library, SCSS(Sass), Razor Views, Figma, Sketch</p>
+                        </div>
+
                       </div>
                     </div>
                   </Html>

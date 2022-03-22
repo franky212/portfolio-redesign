@@ -11,7 +11,7 @@ render(
   <>
     <Suspense fallback={null}>
       <MainContent />
-      <Canvas shadows mode='concurrent' gl={{ antialias: true }} dpr={[1, 1.5]} camera={{position: [0, 0, 0]}} id="canvas-container" style={{position: 'absolute'}}>
+      <Canvas shadows mode='concurrent' devicePixelRatio={2}  gl={{ antialias: true }} camera={{position: [0, 0, 0]}} id="canvas-container" style={{position: 'absolute'}}>
         <ScrollControls damping={10} pages={10}>
           <Scroll>
             <App />
