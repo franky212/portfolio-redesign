@@ -159,15 +159,16 @@ const App = () => {
       </mesh> */}
 
       <spotLight
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
+        shadow-mapSize-width={1024 * 4}
+        shadow-mapSize-height={1024 * 4}
+        // shadow={{ bias: 0 }}
         ref={spotlightRef}
         position={[-1.5, 0, 3]}
         penumbra={0.4}
         target={lightingTarget.current}
         distance={11}
         angle={0.4}
-        intensity={10}
+        intensity={3}
         castShadow />
       <directionalLight
         ref={directionalLightRef}
@@ -210,9 +211,9 @@ const App = () => {
 
       <group ref={lightingTarget}>
         <group ref={imageGroupRef} position={[0, 0, 0]}>
-          <Dog index={0} position={[1.5 * xW, -0.1, -3]} scale={[0.7, 2, 1]} />
+          {/* <Dog index={0} position={[1.5 * xW, -0.1, -3]} scale={[0.7, 2, 1]} />
           <Dog index={1} position={[2.5 * xW, -0.1, -3]} scale={[0.7, 2, 1]} />
-          <Dog index={2} position={[3.5 * xW, -0.1, -3]} scale={[0.7, 2, 1]} />
+          <Dog index={2} position={[3.5 * xW, -0.1, -3]} scale={[0.7, 2, 1]} /> */}
 
           {/* <group rotation={[Math.PI / 2, 0, 0]} position={[1.5, -1, -3]} scale={[0.01, 0.01, 0.01]}>
                 <mesh receiveShadow castShadow geometry={toyCar.nodes.ToyCar.geometry} />
@@ -233,7 +234,7 @@ const App = () => {
                           <div className="flex items-center">
                             <p className="mr-2">{!screenClicked ? 'Zoom In' : 'Zoom Out'}</p>
                             <div onMouseDown={() => setScreenClicked(!screenClicked)} className="cursor-pointer bg-zinc-800 py-2 px-4 rounded-sm hover:bg-zinc-700 transition-colors">
-                              {!screenClicked ? <i class="fa-solid fa-magnifying-glass-plus"></i> : <i class="fa-solid fa-magnifying-glass-minus"></i>}
+                              {!screenClicked ? <i className="fa-solid fa-magnifying-glass-plus"></i> : <i className="fa-solid fa-magnifying-glass-minus"></i>}
                             </div>
                           </div>
                         </nav>
@@ -242,7 +243,7 @@ const App = () => {
                           <a target="_blank" href="https://www.monumetric.com/">
                             <img className="w-16 mb-2" src={monumetricLogo} alt="Monumetric Logo - Graphic of the Pale Blue Dot from Caral Sagan with Monumetric below" />
                           </a>
-                          <p><span className="font-bold">Technologies Used:</span><br />Angular 3/7/13+, SCSS(Sass), AWS/Google Auth APIs, Social Media APIs, Figma, Adobe XD</p>
+                          <p><span className="font-bold">Technologies Used:</span><br />Angular 3/7/13+, Javascript, SCSS(Sass), Multiple Auth APIs, UX/UI Design, Figma, Adobe XD</p>
                         </div>
 
                         <div className="bg-zinc-800 w-full rounded p-4 mb-2">
