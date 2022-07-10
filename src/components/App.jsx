@@ -4,9 +4,7 @@ import { useRef, useState } from 'react';
 import { useFrame, useThree, useLoader } from '@react-three/fiber';
 import { 
   Text, 
-  MeshReflectorMaterial, 
   Html, 
-  Image, 
   useScroll, 
   useGLTF,
  } from '@react-three/drei';
@@ -20,36 +18,51 @@ import monumetricLogo from '../assets/logos/monumetric-stacked-white.svg';
 import linkedInLogo from '../assets/logos/linkedin-logo.png';
 import git from '../assets/logos/git-logo.png';
 
+import { toTitleCase } from '../scripts/utils';
+
 const SocialSphere = ({texture, position, rotation, scale, url}) => {
   const [hovered, setHovered] = useState(false);
   const sphereRef = useRef();
+  const tooltipRef = useRef();
 
   useFrame((state, delta) => {
     // console.log( sphereRef.current.scale );
     if( hovered ) {
+      tooltipRef.current.style.opacity = 1;
       gsap.to( sphereRef.current.scale, {
         x: 1.2,
         y: 1.2,
         z: 1.2
       } );
     } else {
+      tooltipRef.current.style.opacity = 0;
       gsap.to( sphereRef.current.scale, {
         x: 1,
         y: 1,
         z: 1
       } );
     }
-  })
+  });
+
+  function platformTitle() {
+    return url.includes('linkedin') ? 'LinkedIn' : 'Github' ;
+  }
 
   function routeToSocial() {
     window.open(url, '_blank');
   }
 
   return (
-    <mesh ref={sphereRef} onPointerEnter={() => setHovered(true)} onPointerLeave={() => setHovered(false)} onPointerDown={() => routeToSocial()} receiveShadow castShadow position={position} rotation={rotation}>
-      <sphereBufferGeometry args={scale} />
-      <meshPhysicalMaterial attach="material" color={"white"} map={texture} />
-    </mesh>
+    <>
+      <mesh ref={sphereRef} onPointerEnter={() => setHovered(true)} onPointerLeave={() => setHovered(false)} onPointerDown={() => routeToSocial()} receiveShadow castShadow position={position} rotation={rotation}>
+        <sphereBufferGeometry args={scale} />
+        <meshPhysicalMaterial attach="material" color={"white"} map={texture} />
+      </mesh>
+      <Html ref={tooltipRef} className="tooltip" position={[position[0], position[1] + 0.6, position[2]]} rotation={rotation}>
+        Click to view my {platformTitle()}
+        <div class="left-point"></div>
+      </Html>
+    </>
   );
 };
 
@@ -106,7 +119,7 @@ const App = () => {
       gsap.to( sectionTwoRef.current.position, {x: -1.85} );
       gsap.to( sectionTwoRef.current, {fillOpacity: 1} );
     } else {
-      gsap.to( sectionTwoRef.current.position, {x: -5} );
+      gsap.to( sectionTwoRef.current.position, {x: -7} );
       gsap.to( sectionOneRef.current, { fillOpacity: 1 });
       gsap.to( sectionTwoRef.current, { fillOpacity: 0 } );
     }
@@ -123,16 +136,13 @@ const App = () => {
       </mesh>
 
       <group ref={spheresRef}>
-
         <SocialSphere texture={linkedin} position={[1, 0, -3]} scale={[0.4]} rotation={[0, -1.8, -0.2]} url="https://www.linkedin.com/in/frank-delaguila/"/>
         <SocialSphere texture={gitTexture} position={[2.5, 0, -3]} scale={[0.4]} rotation={[0, -2, -0.2]} url="https://github.com/franky212/"/>
-        
       </group>
 
       <spotLight
         shadow-mapSize-width={1024 * 4}
         shadow-mapSize-height={1024 * 4}
-        // shadow={{ bias: 0 }}
         ref={spotlightRef}
         position={[-1.5, 0, 3]}
         penumbra={0.4}
@@ -204,17 +214,38 @@ const App = () => {
                         </nav>
 
                         <div className="bg-zinc-800 w-full rounded p-4 mb-2">
+                          <h1 className="text-xl font-bold">Hi, my name is Frank Delaguila!</h1><br />
+                          <p>I work as a Front End Web Developer and UX/UI Designer. I have experience in frameworks/libraries and languages such as Angular, React, Javascript, jQuery, Node.js, GraphQL, MongoDB, and Express.<br /><br />
+                            I have experience with testing libraries such as Jest, Enzyme, and React testing library.<br /><br />
+                            Automation tools, and task runners such as Webpack, Grunt, and NPM.<br /><br />
+
+                            I also work as a UX/UI designer using tools such as the Adobe Suite(Adobe XD, Adobe Illustrator, etc.), Sketch, and Figma.
+                          </p>
+                        </div>
+
+                        <h2 className="text-xl font-bold text-center my-4">Experience</h2>
+
+                        <div className="bg-zinc-800 w-full rounded p-4 mb-2">
                           <a target="_blank" href="https://www.monumetric.com/">
                             <img className="w-16 mb-2" src={monumetricLogo} alt="Monumetric Logo - Graphic of the Pale Blue Dot from Caral Sagan with Monumetric below" />
                           </a>
-                          <p><span className="font-bold">Frontend Developer and UX/UI Designer<br /></span>Technologies Used:<br />Angular 3/7/13+, Javascript, SCSS(Sass), UX/UI Design, Adobe XD, Figma</p>
+                          <p>
+                            <span className="font-bold">Frontend Developer and UX/UI Designer<br /></span>
+                            Oct 2021 - Present<br />
+                            Technologies Used:<br />
+                            Angular 3/7/13+, Javascript, SCSS(Sass), UX/UI Design, Adobe XD, Figma
+                          </p>
                         </div>
 
                         <div className="bg-zinc-800 w-full rounded p-4 mb-2">
                           <a target="_blank" href="https://www.ultradent.com/">
                             <img className="w-12 mb-2" src={ultradentLogo} alt="Ultradent Logo - UPI in white for Ultradent Products Inc." />
                           </a>
-                          <p><span className="font-bold">Front End Developer<br /></span>Technologies Used:<br />React/Preact, Javascript, jQuery, Webpack, Storybook, React Testing Library, SCSS(Sass), Razor Views, Figma, Sketch</p>
+                          <p>
+                            <span className="font-bold">Front End Developer<br /></span>
+                            May 2018 - Apr 2020<br />
+                            Technologies Used:<br />
+                            React/Preact, Javascript, jQuery, Webpack, Storybook, React Testing Library, SCSS(Sass), Razor Views, Figma, Sketch</p>
                         </div>
 
                       </div>
