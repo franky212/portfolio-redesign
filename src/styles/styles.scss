@@ -39,6 +39,16 @@ body {
   }
 }
 
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
 .tooltip {
   background-color: #1a1a1d;
   color: white;
@@ -55,7 +65,7 @@ body {
     border-right: 1vh solid transparent;
     border-top: 2vh solid #1a1a1d;
     position: absolute;
-    top: 65%;
+    top: 70%;
     left: -4%;
     transform: rotate(50deg);
   }

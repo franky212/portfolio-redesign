@@ -16,6 +16,8 @@ import logo from '../assets/logos/fd..svg';
 import ultradentLogo from '../assets/logos/ultradent-white.svg';
 import monumetricLogo from '../assets/logos/monumetric-stacked-white.svg';
 import linkedInLogo from '../assets/logos/linkedin-logo.png';
+import lifetimeLogo from '../assets/logos/lifetime-logo.webp';
+import dixieTechLogo from '../assets/logos/dixie-tech-logo.png';
 import git from '../assets/logos/git-logo.png';
 
 import { toTitleCase } from '../scripts/utils';
@@ -60,7 +62,7 @@ const SocialSphere = ({texture, position, rotation, scale, url}) => {
       </mesh>
       <Html ref={tooltipRef} className="tooltip" position={[position[0], position[1] + 0.6, position[2]]} rotation={rotation}>
         Click to view my {platformTitle()}
-        <div class="left-point"></div>
+        <div className="left-point"></div>
       </Html>
     </>
   );
@@ -139,6 +141,15 @@ const App = () => {
         <SocialSphere texture={linkedin} position={[1, 0, -3]} scale={[0.4]} rotation={[0, -1.8, -0.2]} url="https://www.linkedin.com/in/frank-delaguila/"/>
         <SocialSphere texture={gitTexture} position={[2.5, 0, -3]} scale={[0.4]} rotation={[0, -2, -0.2]} url="https://github.com/franky212/"/>
       </group>
+
+      {!screenClicked ? 
+        <mesh position={[0, -0.6, -1]}>
+          <Html className="scroll-indicator">
+            <i className="fa-solid fa-computer-mouse"></i>
+            <span className="mt-1">Scroll</span>
+          </Html>
+        </mesh>
+      : null}
 
       <spotLight
         shadow-mapSize-width={1024 * 4}
@@ -219,7 +230,7 @@ const App = () => {
                             I have experience with testing libraries such as Jest, Enzyme, and React testing library.<br /><br />
                             Automation tools, and task runners such as Webpack, Grunt, and NPM.<br /><br />
 
-                            I also work as a UX/UI designer using tools such as the Adobe Suite(Adobe XD, Adobe Illustrator, etc.), Sketch, and Figma.
+                            For UX/UI Design I'm using tools such as the Adobe Suite(Adobe XD, Adobe Illustrator, etc.), Sketch, and Figma.
                           </p>
                         </div>
 
@@ -227,9 +238,10 @@ const App = () => {
 
                         <div className="bg-zinc-800 w-full rounded p-4 mb-2">
                           <a target="_blank" href="https://www.monumetric.com/">
-                            <img className="w-16 mb-2" src={monumetricLogo} alt="Monumetric Logo - Graphic of the Pale Blue Dot from Caral Sagan with Monumetric below" />
+                            <img className="block mx-auto w-16 mb-2" src={monumetricLogo} alt="Monumetric Logo - Graphic of the Pale Blue Dot from Caral Sagan with Monumetric below" />
                           </a>
                           <p>
+                            <span className="font-bold">Monumetric</span><br />
                             <span className="font-bold">Frontend Developer and UX/UI Designer<br /></span>
                             Oct 2021 - Present<br />
                             Technologies Used:<br />
@@ -238,14 +250,42 @@ const App = () => {
                         </div>
 
                         <div className="bg-zinc-800 w-full rounded p-4 mb-2">
-                          <a target="_blank" href="https://www.ultradent.com/">
-                            <img className="w-12 mb-2" src={ultradentLogo} alt="Ultradent Logo - UPI in white for Ultradent Products Inc." />
+                          <a target="_blank" href="https://www.lifetime.com/">
+                            <img className="block mx-auto w-16 mb-2" src={lifetimeLogo} alt="Lifetime Products Logo - The word Lifetime in a shield" />
                           </a>
                           <p>
-                            <span className="font-bold">Front End Developer<br /></span>
+                          <span className="font-bold">Lifetime Products Inc.</span><br />
+                            <span className="font-bold">UX &amp; UI Designer and Developer<br /></span>
+                            Dec 2020 - Oct 2021<br />
+                            Technologies Used:<br />
+                            C# environment - UX/UI Design, React, Razor Views, Javascript, jQuery, Webpack, SCSS(Sass), Adobe XD, implementation of React Testing Library.
+                          </p>
+                        </div>
+
+                        <div className="bg-zinc-800 w-full rounded p-4 mb-2">
+                          <a target="_blank" href="https://www.ultradent.com/">
+                            <img className="block mx-auto w-12 mb-2" src={ultradentLogo} alt="Ultradent Logo - Letters UPI in white for Ultradent Products Inc." />
+                          </a>
+                          <p>
+                            <span className="font-bold">Ultradent Products Inc.</span><br />
+                            <span className="font-bold">Front End Web Developer<br /></span>
                             May 2018 - Apr 2020<br />
                             Technologies Used:<br />
-                            React/Preact, Javascript, jQuery, Webpack, Storybook, React Testing Library, SCSS(Sass), Razor Views, Figma, Sketch</p>
+                            React/Preact, Javascript, jQuery, Webpack, Storybook, React Testing Library, SCSS(Sass), Razor Views, Figma, Sketch
+                          </p>
+                        </div>
+
+                        <div className="bg-zinc-800 w-full rounded p-4 mb-2">
+                          <a target="_blank" href="https://www.ultradent.com/">
+                            <img className="block mx-auto w-12 mb-2" src={dixieTechLogo} alt="Ultradent Logo - Letters UPI in white for Ultradent Products Inc." />
+                          </a>
+                          <p>
+                          <span className="font-bold">Dixie Technical College</span><br />
+                            <span className="font-bold">Front End Web Developer<br /></span>
+                            May 2017 - Oct 2017<br />
+                            Technologies Used:<br />
+                            Javascript, jQuery, HTML, CSS, Adobe Illustrator
+                          </p>
                         </div>
 
                       </div>
